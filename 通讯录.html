@@ -7,17 +7,74 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="http://i.gtimg.cn/vipstyle/frozenui/2.0.0/css/frozen.css">
 	<link rel="stylesheet" type="text/css" href="CSS/weui.css">
+    <script type="text/javascript" src="js/example.js"></script>
+    <script type="text/javascript" src="js/zepto.min.js"></script>
 </head>
 <body>
-<div class="ui-searchbar-wrap ui-border-b">
-    <div class="ui-searchbar ui-border-radius">
-        <i class="ui-icon-search"></i>
-        <div class="ui-searchbar-text">搜索好友</div>
-        <div class="ui-searchbar-input"><input value="" type="tel" placeholder="搜索好友" autocapitalize="off"></div>
-        <i class="ui-icon-close"></i>
+<div class="page">
+    <div class="page__bd">
+        <div class="weui-search-bar" id="searchBar">
+            <form class="weui-search-bar__form">
+                <div class="weui-search-bar__box">
+                    <i class="weui-icon-search"></i>
+                    <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索" required/>
+                    <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+                </div>
+                <label class="weui-search-bar__label" id="searchText">
+                    <i class="weui-icon-search"></i>
+                    <span>搜索好友</span>
+                </label>
+            </form>
+            <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+        </div>       
     </div>
-    <button class="ui-searchbar-cancel">取消</button>
 </div>
+<br/>
+<script type="text/javascript">
+    $(function(){
+        var $searchBar = $('#searchBar'),
+            $searchResult = $('#searchResult'),
+            $searchText = $('#searchText'),
+            $searchInput = $('#searchInput'),
+            $searchClear = $('#searchClear'),
+            $searchCancel = $('#searchCancel');
+
+        function hideSearchResult(){
+            $searchResult.hide();
+            $searchInput.val('');
+        }
+        function cancelSearch(){
+            hideSearchResult();
+            $searchBar.removeClass('weui-search-bar_focusing');
+            $searchText.show();
+        }
+
+        $searchText.on('click', function(){
+            $searchBar.addClass('weui-search-bar_focusing');
+            $searchInput.focus();
+        });
+        $searchInput
+            .on('blur', function () {
+                if(!this.value.length) cancelSearch();
+            })
+            .on('input', function(){
+                if(this.value.length) {
+                    $searchResult.show();
+                } else {
+                    $searchResult.hide();
+                }
+            })
+        ;
+        $searchClear.on('click', function(){
+            hideSearchResult();
+            $searchInput.focus();
+        });
+        $searchCancel.on('click', function(){
+            cancelSearch();
+            $searchInput.blur();
+        });
+    });
+</script>
 <div class="weui-cells">
 <div class="weui-cell">
     <div class="weui-cell__hd"><img src="images/pic_160.png" alt="" style="width:30px;margin-right:5px;display:block"></div>
@@ -62,7 +119,7 @@
     <div class="weui-cell__ft">说明文字</div>
 </div>
 </div>
-<div style="height: 195px"></div>
+<div style="height: 175px"></div>
 <div class="page">
     <div class="page__bd" style="height: 100%;">
         <div class="weui-tab">
