@@ -710,7 +710,8 @@ input.weui-btn_plain-default{
   float:left;
   margin-right:1em;
   min-width:4em;
-  color:#999999;
+  color:black;
+  font-size: large;
   text-align:justify;
   text-align-last:justify;
 }
@@ -718,6 +719,7 @@ input.weui-btn_plain-default{
   display:block;
   overflow:hidden;
   word-break:normal;
+  font-size: x-large;
   word-wrap:break-word;
 }
 .weui-form-preview__btn{
